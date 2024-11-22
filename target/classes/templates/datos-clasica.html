@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Criptografía Clásica</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Criptografía Clásica</h1>
+    <div id="contenido-pdf" class="mt-4">
+        <p>
+            La criptografía clásica se refiere a las técnicas de cifrado utilizadas antes del desarrollo de los métodos computarizados.
+            Estas técnicas incluyen algoritmos como el cifrado César, el cifrado Vigenère y la transposición. 
+            Su propósito era mantener la confidencialidad de la información en comunicaciones sensibles.
+        </p>
+        <p>
+            En la actualidad, aunque estos métodos han sido reemplazados por algoritmos modernos debido a su vulnerabilidad, 
+            la criptografía clásica sigue siendo una base importante para entender los principios de la seguridad criptográfica.
+        </p>
+    </div>
+    <div class="text-center mt-4">
+        <button id="descargar-pdf" class="btn btn-primary">Descargar PDF</button>
+        <a href="/bienvenido" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById("descargar-pdf").addEventListener("click", function () {
+        const contenido = document.getElementById("contenido-pdf");
+        const opciones = {
+            margin: 1,
+            filename: 'Criptografia_Clasica.pdf',
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opciones).from(contenido).save();
+    });
+</script>
+</body>
+</html>

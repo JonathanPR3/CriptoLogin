@@ -1,0 +1,13 @@
+package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import java.util.Optional;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+    Optional<Usuario> findByCorreo(String correo);
+
+    // Nuevo método para buscar por token de recuperación
+    Optional<Usuario> findByTokenRecuperacion(String tokenRecuperacion);
+}
