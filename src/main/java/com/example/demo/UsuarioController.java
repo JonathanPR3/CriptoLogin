@@ -16,6 +16,15 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+        @Controller
+    public class HomeController {
+        @GetMapping("/")
+        public String index() {
+            return "registro"; // Nombre de tu archivo HTML en la carpeta `templates`
+        }
+    }
+
+
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
         if (!model.containsAttribute("usuario")) {
