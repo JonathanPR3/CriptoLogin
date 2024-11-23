@@ -134,7 +134,7 @@ public class UsuarioService {
         usuario.setExpiracionToken(Timestamp.valueOf(expiracion));
         usuarioRepository.save(usuario);
 
-        String enlace = "http://localhost:8080/restablecer?token=" + token;
+        String enlace = "https://enthusiastic-forgiveness-production.up.railway.app/restablecer?token=" + token;
 
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(correo);
