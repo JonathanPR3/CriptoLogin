@@ -11,86 +11,119 @@
         .invalid {
             color: red;
         }
+
+        .navbar-custom {
+            background-color: #343a40; /* Color oscuro para la barra */
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #ffc107; /* Color al pasar el ratón */
+        }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Registro</h1>
-    
-    <!-- Mensaje de éxito -->
-    <p th:if="${mensaje}" th:text="${mensaje}" class="alert alert-success"></p>
-
-    <!-- Formulario -->
-    <form th:action="@{/registro}" method="post" id="registroForm">
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="correo" name="correo" th:value="*{correo}" required>
-        </div>
-        <div class="mb-3">
-            <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
-            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" th:value="*{nombreUsuario}" required>
-        </div>
-        <div class="mb-3">
-            <label for="contraseña" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-            <div id="passwordFeedback" class="mt-2">
-                <p class="invalid" id="length">Debe tener al menos 8 caracteres</p>
-                <p class="invalid" id="uppercase">Debe incluir una letra mayúscula</p>
-                <p class="invalid" id="lowercase">Debe incluir una letra minúscula</p>
-                <p class="invalid" id="number">Debe incluir un número</p>
-                <p class="invalid" id="special">Debe incluir un carácter especial (!@#$%^&*)</p>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo.png" alt="Logo" width="" height="" class="d-inline-block align-text-top">
+                     Cripto Nube
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registro">Registro</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Registrar</button>
-            <a href="/login" class="btn btn-secondary">Ya tengo cuenta</a>
-        </div>
-    </form>
-</div>
+    </nav>
 
-<script>
-    const passwordInput = document.getElementById("contraseña");
-    const submitButton = document.getElementById("submitBtn");
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <h1>Registro</h1>
+        
+        <!-- Mensaje de éxito -->
+        <p th:if="${mensaje}" th:text="${mensaje}" class="alert alert-success"></p>
 
-    const lengthCriteria = document.getElementById("length");
-    const uppercaseCriteria = document.getElementById("uppercase");
-    const lowercaseCriteria = document.getElementById("lowercase");
-    const numberCriteria = document.getElementById("number");
-    const specialCriteria = document.getElementById("special");
+        <!-- Formulario -->
+        <form th:action="@{/registro}" method="post" id="registroForm">
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" th:value="*{correo}" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" th:value="*{nombreUsuario}" required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                <div id="passwordFeedback" class="mt-2">
+                    <p class="invalid" id="length">Debe tener al menos 8 caracteres</p>
+                    <p class="invalid" id="uppercase">Debe incluir una letra mayúscula</p>
+                    <p class="invalid" id="lowercase">Debe incluir una letra minúscula</p>
+                    <p class="invalid" id="number">Debe incluir un número</p>
+                    <p class="invalid" id="special">Debe incluir un carácter especial (!@#$%^&*)</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Registrar</button>
+                <a href="/login" class="btn btn-secondary">Ya tengo cuenta</a>
+            </div>
+        </form>
+    </div>
 
-    // Regex patterns for validation
-    const patterns = {
-        length: /.{8,}/,
-        uppercase: /[A-Z]/,
-        lowercase: /[a-z]/,
-        number: /\d/,
-        special: /[!@#$%^&*]/,
-    };
+    <script>
+        const passwordInput = document.getElementById("contraseña");
+        const submitButton = document.getElementById("submitBtn");
 
-    passwordInput.addEventListener("input", () => {
-        const value = passwordInput.value;
+        const lengthCriteria = document.getElementById("length");
+        const uppercaseCriteria = document.getElementById("uppercase");
+        const lowercaseCriteria = document.getElementById("lowercase");
+        const numberCriteria = document.getElementById("number");
+        const specialCriteria = document.getElementById("special");
 
-        // Validate each criterion
-        validateCriteria(value, patterns.length, lengthCriteria);
-        validateCriteria(value, patterns.uppercase, uppercaseCriteria);
-        validateCriteria(value, patterns.lowercase, lowercaseCriteria);
-        validateCriteria(value, patterns.number, numberCriteria);
-        validateCriteria(value, patterns.special, specialCriteria);
+        const patterns = {
+            length: /.{8,}/,
+            uppercase: /[A-Z]/,
+            lowercase: /[a-z]/,
+            number: /\d/,
+            special: /[!@#$%^&*]/,
+        };
 
-        // Enable the submit button only if all criteria are met
-        const allValid = Array.from(document.querySelectorAll("#passwordFeedback .invalid")).length === 0;
-        submitButton.disabled = !allValid;
-    });
+        passwordInput.addEventListener("input", () => {
+            const value = passwordInput.value;
+            validateCriteria(value, patterns.length, lengthCriteria);
+            validateCriteria(value, patterns.uppercase, uppercaseCriteria);
+            validateCriteria(value, patterns.lowercase, lowercaseCriteria);
+            validateCriteria(value, patterns.number, numberCriteria);
+            validateCriteria(value, patterns.special, specialCriteria);
 
-    function validateCriteria(value, pattern, element) {
-        if (pattern.test(value)) {
-            element.classList.remove("invalid");
-            element.classList.add("valid");
-        } else {
-            element.classList.remove("valid");
-            element.classList.add("invalid");
+            const allValid = Array.from(document.querySelectorAll("#passwordFeedback .invalid")).length === 0;
+            submitButton.disabled = !allValid;
+        });
+
+        function validateCriteria(value, pattern, element) {
+            if (pattern.test(value)) {
+                element.classList.remove("invalid");
+                element.classList.add("valid");
+            } else {
+                element.classList.remove("valid");
+                element.classList.add("invalid");
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
