@@ -110,9 +110,22 @@ public class UsuarioController {
     }
 
     @GetMapping("/llaves")
-    public String mostrarllaves() {
-        return "llaves"; // Nombre del archivo HTML de la pantalla
+    public String mostrarLlaves(HttpSession session, Model model) {
+        // Obtener el usuario desde la sesión
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+    
+        // Si el usuario no está en sesión, redirigir al login
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+    
+        // Pasar el usuario al modelo
+        model.addAttribute("usuario", usuario);
+    
+        // Retornar la vista 'llaves'
+        return "llaves";
     }
+
 
 
 
