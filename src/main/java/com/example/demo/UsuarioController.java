@@ -109,6 +109,11 @@ public class UsuarioController {
         return "datos-tendencias"; // Nombre del archivo HTML para "Tendencias Criptográficas"
     }
 
+    @GetMapping("/llaves")
+    public String mostrarllaves() {
+        return "llaves"; // Nombre del archivo HTML de la pantalla
+    }
+
 
 
     @GetMapping("/recuperar-contra")
